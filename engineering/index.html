@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>공학영역 · SFC 영역운동</title>
+  <meta name="description" content="하나님께서 원하시는 공학이란 무엇일까요?">
+  <meta property="og:title" content="공학영역 · SFC 영역운동">
+  <meta property="og:description" content="하나님께서 원하시는 공학이란 무엇일까요?">
+  <meta property="og:image" content="https://sfc-movement.github.io/field/assets/img/field-logo.png">
+  <link rel="icon" href="../assets/img/field-logo.png">
+  <link rel="stylesheet" href="../assets/field.css">
+</head>
+<body>
+
+  <header class="hero room" style="--band:#684582">
+    <nav class="crumb" aria-label="상위 페이지"><a href="../">영역운동</a><span aria-hidden="true">›</span><span>F08 공학영역</span></nav>
+    <img class="hero-shield" src="../assets/img/shield-engineering.png" alt="SFC 공학영역 로고" width="180" height="180">
+    <h1>공학영역</h1>
+    <p class="hero-lead">하나님께서 원하시는 공학이란 무엇일까요?</p>
+    <p class="hero-links"><a class="ig-link light" href="https://www.instagram.com/sfc_engineering/" rel="noopener"><svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>@sfc_engineering</a></p>
+  </header>
+  <main style="--c:#684582">
+  <section class="section">
+    <div class="section-head"><h2>영역장 인사</h2><p>영역장 이우석</p></div>
+    <article class="letter reveal">
+      <p>안녕하세요, 공학영역장 이우석 운동원입니다. 두 번째 공학영역 소개글을 쓰려고 노트북 앞에 앉았는데, 큰일 났습니다. 사실 영역장인 저조차 ‘공학영역 운동’이 도대체 뭔지 잘 모르겠거든요.</p>
+      <p>그래서 소개글 대신, 여러분께 도움을 구해봅니다.</p>
+      <p><strong>하나님께서 원하시는 공학이란 무엇일까요?</strong></p>
+      <p><strong>그리고 인간 중심의 공학 속에서 어떻게 성경적 가치를 추구할 수 있을까요?</strong></p>
+      <p>혹시 이 질문에 대한 답을 알고 계시는 분은 공학영역 인스타그램(@sfc_engineering)으로 연락 부탁드립니다. 영역장을 구하는 셈 치고 많은 제보 기다리겠습니다. 감사합니다!</p>
+      <p class="letter-sign">— 공학영역장 이우석 운동원</p>
+    </article>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>다가오는 모임</h2></div>
+    <div class="empty reveal"><b>다음 모임 소식을 준비하고 있어요</b>홍보물이 올라오면 이곳에 먼저 보여요.</div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>지나온 기록</h2></div>
+    <div class="empty reveal"><b>아직 기록이 없어요</b>모임이 끝나면 스케치가 이곳에 쌓여요.</div>
+  </section>
+  <p class="back"><a href="../">← 영역운동 홈으로</a></p>
+  </main>
+  <footer class="colophon">
+    <img src="../assets/img/field-logo.png" alt="" aria-hidden="true">
+    <p><b>전국학생신앙운동 SFC · 영역협의체</b></p>
+    <p><a href="https://www.instagram.com/sfc_yeongyeog/" rel="noopener">@sfc_yeongyeog</a></p>
+  </footer>
+<script>
+{
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
+    els.forEach(el => io.observe(el));
+  } else { els.forEach(el => el.classList.add('in')); }
+}
+</script>
+</body>
+</html>
