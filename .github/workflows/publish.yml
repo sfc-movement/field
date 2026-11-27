@@ -1,0 +1,68 @@
+name: 게시 (이슈 승인)
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: site-write
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.label.name == '승인' || github.event.label.name == '삭제'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pillow
+
+      - name: 이슈 읽고 페이지 만들기
+        id: pub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/publish.py
+
+      - name: 저장소에 반영
+        if: steps.pub.outputs.result == 'published' || steps.pub.outputs.result == 'updated' || steps.pub.outputs.result == 'deleted'
+        run: |
+          git config user.name "sfc-field-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "#${{ github.event.issue.number }} ${{ steps.pub.outputs.result }}: ${{ github.event.issue.title }}"
+          for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done
+
+      - name: 결과 알리기
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUM: ${{ github.event.issue.number }}
+          RESULT: ${{ steps.pub.outputs.result }}
+          URL: ${{ steps.pub.outputs.url }}
+          MSG: ${{ steps.pub.outputs.message }}
+        run: |
+          case "$RESULT" in
+            published|updated)
+              gh issue comment "$NUM" --body "✅ $MSG
+          1~2분 뒤 여기서 볼 수 있어요: $URL
+
+          고치고 싶으면 이 이슈 본문을 수정한 뒤, 간사님께 다시 승인해 달라고 말씀해 주세요."
+              gh issue close "$NUM" ;;
+            deleted)
+              gh issue comment "$NUM" --body "🗑️ $MSG"
+              gh issue close "$NUM" ;;
+            denied)
+              gh issue comment "$NUM" --body "⛔ $MSG"
+              gh issue edit "$NUM" --remove-label "${{ github.event.label.name }}" ;;
+            *)
+              gh issue comment "$NUM" --body "⚠️ ${MSG:-처리 중 문제가 생겼어요. Actions 기록을 확인해 주세요.}"
+              gh issue edit "$NUM" --remove-label "${{ github.event.label.name }}" ;;
+          esac

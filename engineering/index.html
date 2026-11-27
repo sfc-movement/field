@@ -9,7 +9,7 @@
   <meta property="og:description" content="하나님께서 원하시는 공학이란 무엇일까요?">
   <meta property="og:image" content="https://sfc-movement.github.io/field/assets/img/field-logo.png">
   <link rel="icon" href="../assets/img/field-logo.png">
-  <link rel="stylesheet" href="../assets/field.css?v=ecfef16e">
+  <link rel="stylesheet" href="../assets/field.css?v=e79be963">
 </head>
 <body>
 
@@ -60,6 +60,7 @@
     <p><b>전국학생신앙운동 SFC · 영역협의체</b></p>
     <p><a href="https://www.instagram.com/sfc_yeongyeog/" rel="noopener">@sfc_yeongyeog</a></p>
   </footer>
+<div class="toast" role="status" aria-live="polite"></div>
 <script>
 {
   const els = document.querySelectorAll('.reveal');
@@ -70,6 +71,13 @@
   if (window.matchMedia('(max-width: 640px)').matches) {
     document.querySelectorAll('.decl').forEach((d, i) => { if (i > 0) d.removeAttribute('open'); });
   }
+  const btn = document.querySelector('.copy-link');
+  if (btn) btn.addEventListener('click', () => {
+    const t = document.querySelector('.toast');
+    const show = m => { t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); };
+    try { navigator.clipboard.writeText(location.href).then(() => show('링크를 복사했어요'), () => show('주소창의 링크를 복사해 주세요')); }
+    catch (e) { show('주소창의 링크를 복사해 주세요'); }
+  });
 }
 </script>
 </body>

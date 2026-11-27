@@ -1,0 +1,78 @@
+name: 📣 모임 홍보 올리기
+description: 앞으로 있을 모임·행사를 안내합니다. 모임 날짜가 지나면 자동으로 '지나온 기록'으로 옮겨져요.
+title: "[홍보] "
+labels: ["홍보"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **간사님이 승인하면** 영역 방과 홈의 '다가오는 모임'에 올라가요.
+        ⚠️ 공개 웹페이지에 올라가요. 개인 전화번호 대신 인스타그램 계정이나 오픈채팅 링크를 권해요.
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      options: ["통일영역", "공학영역", "의료영역", "환경영역"]
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: 제목
+      placeholder: "예: 2027 환경영역 컨퍼런스"
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: 모임 날짜
+      description: 연-월-일 형식. 여러 날이면 첫날. (이 날짜가 지나면 '지나온 기록'으로 옮겨져요)
+      placeholder: "2027-01-15"
+    validations:
+      required: true
+  - type: input
+    id: when
+    attributes:
+      label: 일시
+      description: 페이지에 보일 문구 그대로 적어 주세요.
+      placeholder: "2027년 1월 15일(금) 오후 2시 ~ 16일(토) 정오"
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: 장소
+      placeholder: "예: 서울 ○○교회 / 온라인(Zoom)"
+  - type: input
+    id: summary
+    attributes:
+      label: 한 줄 요약
+      placeholder: "예: 창조 세계를 돌보는 일을 함께 배우는 이틀"
+    validations:
+      required: true
+  - type: textarea
+    id: poster
+    attributes:
+      label: 포스터
+      description: 포스터 이미지 1장을 끌어다 놓아 주세요.
+  - type: textarea
+    id: body
+    attributes:
+      label: 소개글
+      description: "빈 줄 = 문단 나누기 · `- ` = 목록 · `**굵게**`"
+  - type: input
+    id: apply
+    attributes:
+      label: 신청 링크
+      description: 구글 폼 등 신청 주소가 있으면 '신청하기' 버튼이 생겨요.
+      placeholder: "https://forms.gle/..."
+  - type: input
+    id: contact
+    attributes:
+      label: 문의
+      placeholder: "예: 인스타그램 @sfc_environment DM"
+  - type: textarea
+    id: more
+    attributes:
+      label: 추가 사진
+      description: 포스터 말고 더 보여 줄 이미지가 있으면 (선택)

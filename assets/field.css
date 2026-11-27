@@ -260,4 +260,60 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 24px 80px; }
   .letter p { font-size: 15.5px; line-height: 1.85; }
 }
 
+
+/* ═══════════════ 게시물 (스케치·홍보) ═══════════════ */
+.hero.article { padding: 40px 24px 44px; }
+.hero.article .hero-inner { max-width: 680px; }
+.hero.article .kicker { margin-top: 4px; }
+.hero.article h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.2; text-wrap: balance; }
+.post-main { max-width: 680px; padding-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.post-cover, .post-poster { margin: 0; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); background: var(--card); }
+.post-cover img, .post-poster img { display: block; width: 100%; height: auto; }
+.pcard { position: relative; background: var(--card); border-radius: 20px; box-shadow: var(--shadow); padding: 26px 26px 24px; }
+.pcard-no { display: inline-block; font: 700 11.5px var(--sans); color: var(--c); background: #eef0f8; padding: 3px 9px; border-radius: 99px; }
+.pcard h2 { margin: 10px 0 0; font: 700 20px/1.45 var(--title); text-wrap: balance; }
+.pcard p { margin-top: 12px; font-size: 16.5px; line-height: 1.85; }
+.pcard ul, .pcard ol { margin: 12px 0 0; padding-left: 1.3em; font-size: 16px; line-height: 1.8; }
+.pcard li + li { margin-top: 4px; }
+.pcard blockquote { margin: 14px 0 0; padding: 2px 0 2px 16px; border-left: 3px solid var(--c); color: var(--ink-soft); }
+.pcard blockquote p { margin: 0; }
+.pcard img { display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 12px; }
+.pcard strong { color: var(--ink); }
+.gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.gallery-grid img { margin: 0; aspect-ratio: 1; object-fit: cover; }
+.gallery h2 + .gallery-grid { margin-top: 14px; }
+.pcard.share ol, .pcard.prayer ol { list-style: none; padding: 0; counter-reset: q; }
+.pcard.share li, .pcard.prayer li { counter-increment: q; position: relative; padding: 12px 0 12px 40px; border-top: 1px solid var(--line); margin: 0; }
+.pcard.share li:first-child, .pcard.prayer li:first-child { border-top: 0; }
+.pcard.share li::before { content: "Q" counter(q); position: absolute; left: 0; top: 12px; font: 700 14px/1.8 var(--title); color: var(--c); }
+.pcard.prayer { background: var(--c); color: #fff; }
+.pcard.prayer h2 { color: #fff; }
+.pcard.prayer li { border-color: rgba(255,255,255,.28); }
+.pcard.prayer li::before { content: counter(q); position: absolute; left: 0; top: 13px; width: 24px; height: 24px; border-radius: 50%; background: #fff; color: var(--c); font: 700 12.5px/24px var(--title); text-align: center; }
+.pcard.info dl { margin: 0; display: grid; gap: 12px; }
+.pcard.info dl > div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; }
+.pcard.info dt { font: 700 14px/1.8 var(--sans); color: var(--c); }
+.pcard.info dd { margin: 0; font-size: 16px; line-height: 1.8; }
+.apply-btn { display: block; margin-top: 20px; text-align: center; text-decoration: none; font: 700 16px var(--title); color: #fff; background: var(--c); padding: 15px; border-radius: 14px; }
+.apply-btn:hover { filter: brightness(1.08); }
+.post-end { margin-top: 12px; text-align: center; display: grid; gap: 14px; justify-items: center; font-size: 14px; color: var(--ink-soft); }
+.post-end a { color: var(--ink-soft); }
+.copy-link { height: 30px; padding: 0 14px; border-radius: 99px; border: 1px solid var(--line); background: #fff; font: 700 12.5px var(--sans); color: var(--ink-soft); cursor: pointer; }
+.copy-link:hover { border-color: var(--navy); color: var(--navy); }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none; z-index: 20; background: rgba(28,33,64,.92); color: #fff; font-size: 14px; padding: 10px 18px; border-radius: 99px; transition: opacity .25s, transform .25s; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (min-width: 900px) {
+  .hero.article { padding: 56px 32px 60px; }
+  .post-main { padding-top: 40px; gap: 24px; }
+  .pcard { padding: 32px 36px 30px; }
+  .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .hero.article { padding: 24px 20px 30px; }
+  .post-main { padding-top: 20px; gap: 14px; }
+  .pcard { padding: 20px 18px; border-radius: 18px; }
+  .pcard p { font-size: 15.5px; }
+  .pcard h2 { font-size: 18.5px; }
+}
+
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .area, .post { transition: none; } }

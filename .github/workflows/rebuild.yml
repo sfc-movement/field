@@ -1,0 +1,36 @@
+name: 사이트 다시 만들기
+
+on:
+  schedule:
+    - cron: "5 15 * * *"   # 매일 자정(한국 시간) — 날짜가 지난 홍보를 '지나온 기록'으로 옮김
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "_data/**"
+      - ".github/scripts/**"
+      - "assets/field.css"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-write
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 .github/scripts/build.py
+      - run: |
+          git config user.name "sfc-field-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "사이트 다시 만들기"
+          for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done
