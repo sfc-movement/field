@@ -283,11 +283,12 @@ def room(a):
 # ───────────────────────── 게시물 ─────────────────────────
 def article_head(p, a, pre):
     kind_label = "모임 스케치" if p["kind"] == "스케치" else "모임 안내"
+    when = p.get("when") if p["kind"] == "홍보" and p.get("when") else date_label(p["date"])
     return f"""  <header class="hero article" style="--band:{a['band']}">
     <div class="hero-inner">
       <div class="hero-text">
         <nav class="crumb" aria-label="상위 페이지"><a href="{pre}">영역운동</a><span aria-hidden="true">›</span><a href="{pre}{a['slug']}/">{a['name']}영역</a></nav>
-        <p class="kicker">{kind_label} · {date_label(p['date'])}</p>
+        <p class="kicker">{kind_label} · {esc(when)}</p>
         <h1>{esc(p['title'])}</h1>
         <p class="lead">{esc(p['summary'])}</p>
       </div>

@@ -26,8 +26,8 @@ body:
     id: date
     attributes:
       label: 모임 날짜
-      description: 연-월-일 형식. 여러 날이면 첫날. (이 날짜가 지나면 '지나온 기록'으로 옮겨져요)
-      placeholder: "2027-01-15"
+      description: 연-월-일 형식. 여러 날 이어지는 모임이면 **마지막 날**을 적어 주세요. 이 날짜가 끝날 때까지 '다가오는 모임'에 보이고, 그다음 날 '지나온 기록'으로 옮겨져요.
+      placeholder: "2027-01-16"
     validations:
       required: true
   - type: input
