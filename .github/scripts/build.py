@@ -473,13 +473,14 @@ def about_band(cur_slug, pre):
     tabs = [f'<a href="{pre}about/"' + (' aria-current="page"' if cur_slug is None else '') + '>전체</a>']
     for a in ABOUT:
         tabs.append(f'<a href="{pre}{a["path"]}"' + (' aria-current="page"' if a["slug"] == cur_slug else '') + f'>{esc(a.get("tab") or a["title"])}</a>')
-    return f"""  <header class="hero deck-band">
+    compact = " compact" if cur_slug else ""
+    return f"""  <header class="hero deck-band{compact}">
 {SHAPES}
     <div class="hero-inner">
       <nav class="crumb" aria-label="상위 페이지"><a href="{pre}">영역운동</a></nav>
       <img class="deck-mark" src="{pre}assets/img/field-logo.png" alt="" aria-hidden="true" width="414" height="420">
       <p class="kicker">Student For Christ</p>
-      <h1>영역운동이란?</h1>
+      {'<p class="deck-title">영역운동이란?</p>' if cur_slug else '<h1>영역운동이란?</h1>'}
       <p class="lead">영역운동을 소개하는 글과 강의안을 모았어요</p>
       <nav class="deck-tabs" aria-label="글 목록">{''.join(tabs)}</nav>
     </div>

@@ -416,8 +416,22 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 24px 80px; }
 @media (max-width: 640px) {
   .dfig.side { float: none; width: 52%; margin: 16px auto 4px; }
 }
+/* polish: 글 페이지의 짧은 띠, 탭 포커스, 고백문 번호 */
+.deck-band.compact { padding: 18px 20px 14px; }
+.deck-band.compact .deck-mark, .deck-band.compact .kicker, .deck-band.compact .lead { display: none; }
+.deck-band.compact .crumb { margin-bottom: 6px; }
+.deck-title { margin: 0; font: 700 20px/1.3 var(--title); letter-spacing: -.01em; }
+.deck-band.compact .deck-tabs { margin-top: 12px; }
+.deck-tabs a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.dnum { color: var(--heart); }
+.dcover:not(:has(.dcover-chapters)) { min-height: 0; padding-block: 48px; }
+.dcard.key > h2:first-of-type { margin-top: 12px; }
+.dcard.key > h2 + p { margin-top: 14px; }
+.dcard > :last-child { margin-bottom: 0; }
+.dend .ig-link { color: var(--navy); }
 @media (min-width: 900px) {
   .deck-band { padding: 36px 32px 28px; }
+  .deck-band.compact { padding: 22px 32px 16px; }
   .deck, .deck-list { padding-top: 44px; gap: 30px; }
   .dcard { padding: 30px 34px 32px; }
 }
