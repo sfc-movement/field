@@ -527,6 +527,7 @@ def about_page(i):
       <p class="dcover-meta"><span class="dcover-no">{i + 1:02d}</span>{meta}</p>
       <h1>{esc(a['title'])}</h1>
       <p class="dcover-sum">{esc(a['summary'])}</p>
+      {f'<p class="dcover-by">{esc(a["author_label"])}</p>' if a.get("author_label") else ''}
       {f'<ul class="dcover-chapters">{chips}</ul>' if chips else ''}
       <p class="dcover-hint">아래로 넘겨 주세요 ↓</p>
     </header>""")
