@@ -407,6 +407,15 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 24px 80px; }
 .dcard .field-chips.muted span { background: #f4f0f6; color: #6b5a73; }
 .dcard blockquote small { display: block; margin-top: 6px; font: 700 12.5px var(--sans); color: var(--ink-soft); }
 .dcard.key > h2 + p, .dcard.key > p:first-of-type { margin-top: 12px; }
+.dcard { display: flow-root; }
+.dfig { margin: 16px 0 0; }
+.dfig img { margin: 0; border-radius: 12px; box-shadow: 0 10px 22px -14px rgba(20,25,60,.45); }
+.dfig figcaption { margin-top: 8px; font: 700 12.5px/1.5 var(--sans); color: var(--ink-soft); text-align: center; }
+.dfig.wide img { aspect-ratio: 16 / 9; object-fit: cover; }
+.dfig.side { float: right; width: 34%; margin: 16px 0 10px 20px; }
+@media (max-width: 640px) {
+  .dfig.side { float: none; width: 52%; margin: 16px auto 4px; }
+}
 @media (min-width: 900px) {
   .deck-band { padding: 36px 32px 28px; }
   .deck, .deck-list { padding-top: 44px; gap: 30px; }
