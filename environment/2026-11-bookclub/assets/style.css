@@ -508,3 +508,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .week-tile b { font-size: 60px; letter-spacing: -.03em; }
 .week-tile small { font-size: 21px; letter-spacing: -.02em; }
 @media (max-width: 560px) { .book-hand { font-size: 20px; } }
+
+/* 상위 이동 */
+.crumb { position: relative; z-index: 2; display: flex; gap: 6px; align-items: center; justify-content: center; margin: -6px 0 16px; font: 700 13px var(--sans); color: rgba(255,255,255,.75); }
+.crumb a { color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 99px; background: rgba(255,255,255,.14); }
+.crumb a:hover { background: rgba(255,255,255,.26); }

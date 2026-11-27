@@ -1,0 +1,99 @@
+/*
+ VOICE  : 차분하고 단정한 학생운동의 게시판. 소식이 주인공, 틀은 뒤로.
+ IDEA   : 영역운동 방패 로고 — 남색 바탕 위에 겹친 하트와 원.
+ PICTURE: 상단 남색 띠에 로고와 크게 겹친 하트·원.
+ COLOUR : 남색 #323c81 바탕, 하트 #5f6db8, 원 #17269b. 영역마다 고유색 하나.
+ TYPE   : GmarketSans(제목) + Paperlogy(본문).
+*/
+@font-face { font-family: "GmarketSans"; src: url("fonts/GmarketSansBold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Paperlogy"; src: url("fonts/Paperlogy-4Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Paperlogy"; src: url("fonts/Paperlogy-7Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  --navy: #323c81; --navy-deep: #232c66; --heart: #5f6db8; --circle: #17269b;
+  --paper: #f4f5fa; --card: #fff; --ink: #1c2140; --ink-soft: #5b6180; --line: #dfe2ee;
+  --c-medical: #c8506a; --c-unification: #5f6db8; --c-environment: #38824f; --c-engineering: #2b8796;
+  --title: "GmarketSans", "Paperlogy", sans-serif; --sans: "Paperlogy", system-ui, sans-serif;
+  --shadow: 0 1px 0 rgba(40,50,110,.05), 0 18px 36px -24px rgba(30,40,100,.35);
+  --ease: cubic-bezier(.2,.75,.2,1);
+}
+* { box-sizing: border-box; min-width: 0; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.7 var(--sans); word-break: keep-all; overflow-x: clip; }
+a { color: inherit; }
+::selection { background: #dfe3f6; }
+a:focus-visible { outline: 2px solid var(--heart); outline-offset: 3px; border-radius: 12px; }
+
+/* ── 상단 띠 ── */
+.hero { position: relative; overflow: hidden; background: var(--band, var(--navy)); color: #fff; text-align: center; padding: 34px 18px 40px; }
+.hero-shapes { position: absolute; inset: 0; pointer-events: none; }
+.hero-shapes svg { position: absolute; }
+.hero-shapes .heart { width: min(520px, 90vw); right: max(-140px, calc(50% - 560px)); top: -60px; opacity: .55; }
+.hero-shapes .circle { width: min(360px, 66vw); left: max(-120px, calc(50% - 520px)); bottom: -150px; opacity: .7; }
+.hero > *:not(.hero-shapes) { position: relative; }
+.hero-logo { display: block; margin: 0 auto 16px; width: 112px; height: auto; filter: drop-shadow(0 10px 18px rgba(10,15,50,.35)); }
+.hero-logo.round { border-radius: 50%; width: 96px; }
+.hero-kicker { margin: 0; font: 700 14px var(--sans); letter-spacing: .04em; color: rgba(255,255,255,.8); }
+.hero h1 { margin: 4px 0 0; font: 700 clamp(38px, 9vw, 56px)/1.1 var(--title); letter-spacing: -.02em; text-wrap: balance; }
+.hero-lead { margin: 12px auto 0; max-width: 30em; font-size: 16px; color: rgba(255,255,255,.88); text-wrap: balance; }
+.crumb { display: flex; gap: 6px; justify-content: center; align-items: center; margin: 0 0 18px; font: 700 13px var(--sans); color: rgba(255,255,255,.7); }
+.crumb a { text-decoration: none; color: #fff; background: rgba(255,255,255,.14); padding: 4px 10px; border-radius: 99px; }
+.crumb a:hover { background: rgba(255,255,255,.26); }
+
+/* ── 본문 ── */
+main { max-width: 960px; margin: 0 auto; padding: 0 18px 72px; }
+.section { margin-top: 44px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 4px 14px; }
+.section-head h2 { margin: 0; font: 700 22px/1.3 var(--title); }
+.section-head p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+/* 영역 카드 */
+.areas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.area { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; background: var(--card); border-radius: 20px; box-shadow: var(--shadow); text-decoration: none; transition: transform .3s var(--ease), box-shadow .3s; }
+a.area:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(40,50,110,.05), 0 24px 40px -24px rgba(30,40,100,.45); }
+.area-mark { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font: 700 22px var(--title); overflow: hidden; }
+.area-mark img { width: 100%; height: 100%; object-fit: cover; }
+.area-name { margin: 0; font: 700 20px/1.3 var(--title); }
+.area-name small { margin-left: 6px; font: 700 12px var(--sans); color: var(--c); letter-spacing: .02em; }
+.area-status { margin: 4px 0 0; font-size: 14px; color: var(--ink-soft); }
+a.area .area-status { color: var(--c); font-weight: 700; }
+.area-go { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font: 700 18px var(--sans); color: var(--c); }
+.area.waiting { box-shadow: none; background: rgba(255,255,255,.6); border: 1px dashed var(--line); }
+.area.waiting .area-mark { opacity: .55; }
+
+/* 소식 목록 */
+.feed { display: grid; gap: 12px; }
+.post { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 18px; align-items: center; padding: 14px; background: var(--card); border-radius: 18px; box-shadow: var(--shadow); text-decoration: none; transition: transform .3s var(--ease); }
+.post:hover { transform: translateY(-2px); }
+.post-thumb { width: 96px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; background: var(--line); }
+.post-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0; font-size: 13px; color: var(--ink-soft); }
+.chip { font: 700 12px/1 var(--sans); padding: 5px 9px; border-radius: 99px; color: #fff; background: var(--c, var(--navy)); }
+.chip.kind { background: #eceef7; color: var(--ink-soft); }
+.post-title { margin: 8px 0 0; font: 700 19px/1.4 var(--title); text-wrap: balance; }
+.post-sum { margin: 6px 0 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.65; }
+
+/* 빈 상태 */
+.empty { padding: 26px 22px; text-align: center; background: rgba(255,255,255,.6); border: 1px dashed var(--line); border-radius: 18px; color: var(--ink-soft); font-size: 15px; }
+.empty b { display: block; color: var(--ink); font: 700 16px var(--title); margin-bottom: 4px; }
+
+/* 함께하기 */
+.join { padding: 26px 24px; border-radius: 20px; background: var(--navy); color: #fff; display: grid; gap: 8px; }
+.join h2 { margin: 0; font: 700 21px var(--title); }
+.join p { margin: 0; color: rgba(255,255,255,.88); font-size: 15.5px; }
+
+.colophon { text-align: center; font-size: 13px; color: var(--ink-soft); padding: 8px 20px 48px; }
+.colophon img { display: block; margin: 0 auto 10px; width: 44px; height: auto; opacity: .9; }
+.colophon p { margin: 2px 0; }
+.colophon b { color: var(--ink); font: 700 14.5px var(--sans); }
+
+/* 등장 */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .areas { grid-template-columns: minmax(0, 1fr); }
+  .post { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; }
+  .post-thumb { width: 76px; }
+  .post-title { font-size: 17px; }
+  .hero-logo { width: 92px; }
+}
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } a.area, .post { transition: none; } }

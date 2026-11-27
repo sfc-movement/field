@@ -3,10 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SFC 영역협의체</title>
-  <meta http-equiv="refresh" content="0; url=environment/">
+  <title>SFC 영역운동</title>
+  <meta name="description" content="의료·통일·환경·공학 — SFC 영역운동의 소식과 기록">
+  <meta property="og:title" content="SFC 영역운동">
+  <meta property="og:description" content="의료·통일·환경·공학 — SFC 영역운동의 소식과 기록">
+  <link rel="icon" href="assets/img/field-logo.png">
+  <link rel="stylesheet" href="assets/field.css">
 </head>
 <body>
-  <p><a href="environment/">환경영역 책모임 페이지로 이동</a></p>
+
+  <header class="hero">
+  <div class="hero-shapes" aria-hidden="true">
+    <svg class="heart" viewBox="0 0 100 92"><path fill="#5f6db8" d="M50 90 C20 66 0 50 0 27 C0 11 12 0 27 0 C37 0 45 6 50 14 C55 6 63 0 73 0 C88 0 100 11 100 27 C100 50 80 66 50 90Z"/></svg>
+    <svg class="circle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#17269b"/></svg>
+  </div>
+    <img class="hero-logo" src="assets/img/field-logo.png" alt="Student For Christ 영역운동 로고" width="414" height="420">
+    <p class="hero-kicker">Student For Christ</p>
+    <h1>영역운동</h1>
+    <p class="hero-lead">의료 · 통일 · 환경 · 공학, 각자의 자리에서 함께 걷는 운동의 소식을 모읍니다.</p>
+  </header>
+  <main>
+  <section class="section">
+    <div class="section-head"><h2>네 개의 영역</h2><p>영역을 눌러 들어가 보세요</p></div>
+    <div class="areas">
+      <div class="area waiting reveal" style="--c:var(--c-medical)">
+        <span class="area-mark" aria-hidden="true">의</span>
+        <span><span class="area-name" style="display:block">의료영역<small>Medical</small></span><span class="area-status" style="display:block">첫 소식을 준비하고 있어요</span></span>
+      </div>
+      <div class="area waiting reveal" style="--c:var(--c-unification)">
+        <span class="area-mark" aria-hidden="true">통</span>
+        <span><span class="area-name" style="display:block">통일영역<small>Unification</small></span><span class="area-status" style="display:block">첫 소식을 준비하고 있어요</span></span>
+      </div>
+      <a class="area reveal" href="environment/" style="--c:var(--c-environment)">
+        <span class="area-mark"><img src="assets/img/env-logo.png" alt=""></span>
+        <span><span class="area-name" style="display:block">환경영역<small>Environment</small></span><span class="area-status" style="display:block">소식 1편</span></span>
+        <span class="area-go" aria-hidden="true">→</span>
+      </a>
+      <div class="area waiting reveal" style="--c:var(--c-engineering)">
+        <span class="area-mark" aria-hidden="true">공</span>
+        <span><span class="area-name" style="display:block">공학영역<small>Engineering</small></span><span class="area-status" style="display:block">첫 소식을 준비하고 있어요</span></span>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>최근 소식</h2><p>모든 영역의 홍보와 스케치</p></div>
+    <div class="feed">
+    <a class="post reveal" href="environment/2026-11-bookclub/" style="--c:var(--c-environment)">
+      <img class="post-thumb" src="assets/img/bookclub-cover.jpg" alt="" loading="lazy">
+      <span>
+        <span class="post-meta"><span class="chip">환경영역</span><span class="chip kind">스케치</span><span>2026년 11월</span></span>
+        <span class="post-title" style="display:block">11월 책모임 — 『성경과 환경문제』</span>
+        <span class="post-sum" style="display:block">매주 수요일 밤, 네 번에 걸쳐 창조에서 지속 가능한 내일까지 함께 읽은 기록입니다.</span>
+      </span>
+    </a>
+    </div>
+  </section>
+  <section class="section">
+    <div class="join reveal">
+      <h2>함께하고 싶다면</h2>
+      <p>각 영역의 모임 소식은 영역장이 직접 올립니다. 관심 있는 영역의 모임에 언제든 함께해 주세요.</p>
+    </div>
+  </section>
+  </main>
+  <footer class="colophon">
+    <img src="assets/img/field-logo.png" alt="" aria-hidden="true">
+    <p><b>전국학생신앙운동 SFC · 영역협의체</b></p>
+    <p>의료 · 통일 · 환경 · 공학</p>
+  </footer>
+<script>
+{
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+    els.forEach(el => io.observe(el));
+  } else { els.forEach(el => el.classList.add('in')); }
+}
+</script>
 </body>
 </html>

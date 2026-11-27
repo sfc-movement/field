@@ -1,9 +1,16 @@
-# field — SFC 영역협의체
+# field — SFC 영역운동
 
-영역별 페이지를 폴더로 나눠 올리는 저장소입니다.
+SFC 영역협의체(의료 · 통일 · 환경 · 공학)의 홍보물과 모임 스케치를 모으는 홈페이지입니다.
 
-| 영역 | 주소 |
+- 홈: https://sfc-movement.github.io/field/
+- 영역 방: `/field/<영역>/` (예: `/field/environment/`)
+- 게시물: `/field/<영역>/<연-월-이름>/` (예: `/field/environment/2026-11-bookclub/`)
+
+| 영역 | 폴더 |
 |---|---|
-| 환경영역 · 2026년 11월 책모임 스케치 | https://sfc-movement.github.io/field/environment/ |
+| 의료 | `medical/` |
+| 통일 | `unification/` |
+| 환경 | `environment/` |
+| 공학 | `engineering/` |
 
-새 영역은 같은 방식으로 폴더를 만들어 추가합니다 (예: `/field/○○/`).
+공통 스타일과 로고는 `assets/`에 있습니다.
