@@ -316,4 +316,20 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 24px 80px; }
   .pcard h2 { font-size: 18.5px; }
 }
 
+/* 안내 페이지 */
+.guide-btns { display: grid; gap: 8px; margin-top: 14px; }
+.guide-btns .apply-btn { margin: 0; font-size: 15px; padding: 13px; background: #4f7a5a; }
+.guide-btns .apply-btn.alt { background: #684582; }
+.guide-btns .apply-btn.ghosty { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+.guide pre { margin: 12px 0 0; padding: 14px 16px; background: #f4f5fa; border-radius: 12px; font: 14px/1.7 ui-monospace, Menlo, monospace; white-space: pre-wrap; color: var(--ink); }
+.guide code { font: 13.5px ui-monospace, Menlo, monospace; background: #eef0f8; padding: 1px 5px; border-radius: 5px; }
+.guide p a, .guide li a { color: var(--navy); }
+.guide .apply-btn { color: #fff; }
+.guide .apply-btn.ghosty { color: var(--navy); }
+.pcard.admin summary { list-style: none; cursor: pointer; }
+.pcard.admin summary::-webkit-details-marker { display: none; }
+.pcard.admin summary h2 { margin: 0; font-size: 17px; color: var(--ink-soft); }
+.pcard.admin summary h2::after { content: " +"; color: var(--heart); }
+.pcard.admin[open] summary h2::after { content: " −"; }
+@media (min-width: 641px) { .guide-btns { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .area, .post { transition: none; } }

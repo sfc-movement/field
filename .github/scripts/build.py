@@ -84,7 +84,7 @@ def foot(a):
     return f"""  <footer class="colophon">
     <img src="{a}img/field-logo.png" alt="" aria-hidden="true">
     <p><b>전국학생신앙운동 SFC · 영역협의체</b></p>
-    <p><a href="{IG.format('sfc_yeongyeog')}" rel="noopener">@sfc_yeongyeog</a></p>
+    <p><a href="{IG.format('sfc_yeongyeog')}" rel="noopener">@sfc_yeongyeog</a> · <a href="{a}../guide/">영역장 글쓰기 안내</a></p>
   </footer>
 <div class="toast" role="status" aria-live="polite"></div>
 <script>
@@ -361,6 +361,93 @@ def promo_page(p):
     return "\n".join(o)
 
 
+
+# ───────────────────────── 글쓰기 안내 ─────────────────────────
+NEW = "https://github.com/sfc-movement/field/issues/new?template="
+
+
+def guide():
+    o = [head("글 올리는 방법 · SFC 영역운동", "영역장이 홈페이지에 홍보와 스케치를 직접 올리는 방법", "../assets/")]
+    o.append(f"""  <header class="hero article">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <nav class="crumb" aria-label="상위 페이지"><a href="../">영역운동</a></nav>
+        <p class="kicker">영역장 안내</p>
+        <h1>홈페이지에 글 올리는 방법</h1>
+        <p class="lead">양식을 채우고 사진을 끌어다 놓으면, 간사님 승인 뒤 몇 분 안에 페이지가 만들어져요.</p>
+      </div>
+    </div>
+  </header>
+  <main class="post-main guide" style="--c:var(--navy)">
+  <section class="pcard reveal">
+    <span class="pcard-no">준비</span>
+    <h2>GitHub 계정 하나만 있으면 돼요</h2>
+    <p>글은 GitHub이라는 곳의 '이슈' 양식으로 올려요. 계정이 없다면 <a href="https://github.com/signup" rel="noopener">github.com/signup</a>에서 이메일로 무료 가입해 주세요. 휴대폰에서는 GitHub 앱을 깔면 더 편해요.</p>
+  </section>
+  <section class="pcard reveal">
+    <span class="pcard-no">01</span>
+    <h2>양식을 골라요</h2>
+    <div class="guide-btns">
+      <a class="apply-btn" href="{NEW}1-sketch.yml" rel="noopener">📸 모임 스케치 올리기</a>
+      <a class="apply-btn alt" href="{NEW}2-promo.yml" rel="noopener">📣 모임 홍보 올리기</a>
+      <a class="apply-btn ghosty" href="{NEW}3-greeting.yml" rel="noopener">✏️ 영역 소개·인사 바꾸기</a>
+    </div>
+    <ul>
+      <li><strong>스케치</strong>: 이미 한 모임의 기록. 카드 여러 장으로 된 페이지가 돼요.</li>
+      <li><strong>홍보</strong>: 앞으로 있을 모임. 모임 날짜가 지나면 자동으로 '지나온 기록'으로 옮겨져요.</li>
+    </ul>
+  </section>
+  <section class="pcard reveal">
+    <span class="pcard-no">02</span>
+    <h2>칸을 채우고 사진을 넣어요</h2>
+    <p>사진은 칸 안에 <strong>끌어다 놓거나 붙여 넣으면</strong> 돼요. 휴대폰에서는 칸을 누른 뒤 아래쪽 클립(📎) 버튼으로 사진을 고르세요.</p>
+    <p>스케치의 <strong>내용 카드</strong>는 이렇게 써요. <code>##</code>으로 시작하는 줄마다 새 카드가 생겨요.</p>
+    <pre>## 창조 세계는 우리의 이해를 넘어선다
+하나님은 어떤 것도 똑같이 지으시지 않으셨어요.
+
+&gt; 인상 깊은 문장은 이렇게 인용해요. (p.27)
+
+## 우리가 할 수 있는 일
+- 자가용 자제
+- 텃밭 가꾸기</pre>
+    <p>빈 줄은 문단 나누기, <code>- </code>는 목록, <code>**굵게**</code>는 강조예요.</p>
+  </section>
+  <section class="pcard reveal">
+    <span class="pcard-no">03</span>
+    <h2>제출하면 끝, 승인을 기다려요</h2>
+    <p>맨 아래 <strong>Create</strong>(또는 Submit new issue)를 누르면 접수돼요. 간사님이 확인하고 승인하면 몇 분 안에 홈페이지에 올라가고, 이슈에 <strong>페이지 링크가 담긴 댓글</strong>이 달려요. GitHub 알림으로도 받을 수 있어요.</p>
+  </section>
+  <section class="pcard reveal">
+    <span class="pcard-no">04</span>
+    <h2>고치거나 내리고 싶을 때</h2>
+    <ul>
+      <li><strong>고치기</strong>: 내가 올린 이슈를 열어 본문 오른쪽 위 <code>···</code> → <strong>Edit</strong>로 고친 뒤, 간사님께 "다시 승인해 주세요"라고 댓글을 남겨요.</li>
+      <li><strong>내리기</strong>: 이슈에 "내려 주세요"라고 댓글을 남기면 간사님이 내려 드려요.</li>
+    </ul>
+  </section>
+  <section class="pcard prayer reveal" style="--c:#323c81">
+    <h2>올리기 전에 꼭 확인해요</h2>
+    <ol>
+      <li>공개 웹페이지예요. 전화번호 같은 개인정보는 넣지 말아 주세요. 문의는 인스타그램이나 오픈채팅 링크로요.</li>
+      <li>얼굴이 나온 사진은 본인 동의를 받은 것만 올려요.</li>
+      <li>책 내용은 짧은 인용만, 나머지는 우리 말로 정리해요.</li>
+    </ol>
+  </section>
+  <details class="pcard admin reveal">
+    <summary><h2>관리자용: 승인하는 방법</h2></summary>
+    <ul>
+      <li>새 이슈가 오면 내용을 확인하고, 오른쪽 <strong>Labels</strong>에서 <code>승인</code>을 붙이면 자동으로 게시되고 이슈가 닫혀요.</li>
+      <li>수정 후 다시 게시: 이슈를 다시 열고(Reopen) <code>승인</code> 라벨을 뗐다가 다시 붙여요.</li>
+      <li>내리기: <code>삭제</code> 라벨을 붙여요.</li>
+      <li>저장소 쓰기 권한이 있는 사람이 붙인 라벨만 처리돼요.</li>
+    </ul>
+  </details>
+  <footer class="post-end reveal"><p><a href="../">← 영역운동 홈</a> · <a href="https://github.com/sfc-movement/field/issues" rel="noopener">올라온 글 목록(이슈)</a></p></footer>
+  </main>""")
+    o.append(foot("../assets/"))
+    return "\n".join(o)
+
+
 REDIRECT = """<!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8"><title>이동 중…</title>
 <link rel="canonical" href="{to}"><meta http-equiv="refresh" content="0; url={to}"></head>
@@ -377,6 +464,7 @@ def write(rel, text):
 
 def main():
     write("index.html", hub())
+    write("guide/index.html", guide())
     for a in AREAS:
         write(f"{a['slug']}/index.html", room(a))
     for p in POSTS:
