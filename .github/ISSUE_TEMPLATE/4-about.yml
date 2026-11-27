@@ -1,0 +1,79 @@
+name: 📖 '영역운동이란?' 글 올리기
+description: 영역운동을 소개하는 글이나 강의안을 카드형 페이지로 올립니다.
+title: "[영역운동이란] "
+labels: ["영역운동이란"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **승인되면** 'sfc-movement.github.io/field/about/'에 카드형 페이지로 올라가요. 올린 순서대로 탭이 생겨요.
+  - type: input
+    id: title
+    attributes:
+      label: 제목
+      placeholder: "예: 영역운동은 왜 학생 때부터인가"
+    validations:
+      required: true
+  - type: input
+    id: tab
+    attributes:
+      label: 탭 이름
+      description: 상단 탭에 보일 짧은 이름 (10자 안팎)
+      placeholder: "예: 왜 학생 때부터"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 종류
+      options: ["소개글", "강의안", "자료"]
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: 한 줄 요약
+    validations:
+      required: true
+  - type: textarea
+    id: cover
+    attributes:
+      label: 표지 사진
+      description: 표지 카드에 넣을 사진 1장 (선택)
+  - type: textarea
+    id: body
+    attributes:
+      label: 본문
+      description: |
+        `# 장 제목` = 장 구분선 · `## 카드 제목` = 새 카드 · 빈 줄 = 문단 · `- ` 목록 · `> ` 인용 · `**굵게**` · 사진은 원하는 자리에 붙여 넣기
+      placeholder: |
+        # 1. 영역운동의 출발점
+        ## 삶의 모든 영역은 하나님의 것
+        첫 문단을 적어요.
+
+        > 인용할 문장
+
+        ## 두 번째 카드
+        - 목록 하나
+        - 목록 둘
+
+        # 2. 오늘 우리의 자리
+        ## ...
+    validations:
+      required: true
+  - type: textarea
+    id: share
+    attributes:
+      label: 나눔 질문
+      description: 한 줄에 하나씩 (선택)
+  - type: textarea
+    id: prayer
+    attributes:
+      label: 기도제목
+      description: 한 줄에 하나씩 (선택)
+  - type: input
+    id: sign
+    attributes:
+      label: 맺음말
+      description: 마지막 카드에 보일 한 줄 (선택)
+      placeholder: "예: 2026년 겨울, 영역협의체"

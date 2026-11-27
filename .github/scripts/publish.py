@@ -221,11 +221,14 @@ def lines(text):
 
 # ─────────────── 처리 ───────────────
 def post_files_for(issue_no):
-    d = os.path.join(ROOT, "_data/posts")
-    for name in os.listdir(d):
-        p = json.load(open(os.path.join(d, name), encoding="utf-8"))
-        if p.get("issue") == issue_no:
-            yield os.path.join(d, name), p
+    for sub in ("_data/posts", "_data/about"):
+        d = os.path.join(ROOT, sub)
+        if not os.path.isdir(d):
+            continue
+        for name in os.listdir(d):
+            p = json.load(open(os.path.join(d, name), encoding="utf-8"))
+            if p.get("issue") == issue_no:
+                yield os.path.join(d, name), p
 
 
 def remove_post(issue_no):
@@ -278,6 +281,54 @@ def publish_post(issue, kind):
     return post
 
 
+def split_chapters(text, images):
+    """'# 장 제목' 은 장 구분, '## 카드 제목' 은 새 카드."""
+    cards, chapter, title, buf = [], None, None, []
+
+    def flush():
+        if title is not None or "".join(buf).strip():
+            cards.append({"chapter": chapter, "title": title, "html": blocks_to_html("\n".join(buf), images)})
+
+    for line in (text or "").split("\n"):
+        m1 = re.match(r"^\s*#\s+(.+)$", line)
+        m2 = re.match(r"^\s*#{2,3}\s+(.+)$", line)
+        if m1:
+            flush()
+            chapter, title, buf = m1.group(1).strip(), None, []
+        elif m2:
+            flush()
+            title, buf = m2.group(1).strip(), []
+        else:
+            buf.append(line)
+    flush()
+    return cards
+
+
+def publish_about(issue):
+    f = parse_form(issue["body"])
+    title = f.get("제목", "").strip() or issue["title"]
+    slug = f"n{issue['number']}"
+    rel = f"about/{slug}/"
+    remove_post(issue["number"])
+    post_dir = os.path.join(ROOT, rel)
+    os.makedirs(post_dir, exist_ok=True)
+    images = Images(post_dir)
+    cover = images.all_in(f.get("표지 사진", ""))
+    art = {"slug": slug, "path": rel, "order": 100 + issue["number"],
+           "kind": f.get("종류", "").strip() or "소개글",
+           "tab": f.get("탭 이름", "").strip() or title[:10],
+           "title": title, "summary": f.get("한 줄 요약", "").strip() or title,
+           "date": issue["created_at"][:10], "cover": cover[0] if cover else None,
+           "cards": split_chapters(f.get("본문", ""), images),
+           "share": lines(f.get("나눔 질문", "")), "prayer": lines(f.get("기도제목", "")),
+           "sign": f.get("맺음말", "").strip() or None,
+           "issue": issue["number"], "author": issue["user"]["login"]}
+    os.makedirs(os.path.join(ROOT, "_data/about"), exist_ok=True)
+    with open(os.path.join(ROOT, "_data/about", f"{slug}.json"), "w", encoding="utf-8") as fp:
+        json.dump(art, fp, ensure_ascii=False, indent=2)
+    return art
+
+
 def update_greeting(issue):
     f = parse_form(issue["body"])
     area = AREA_BY_NAME.get(f.get("영역", "").strip())
@@ -308,6 +359,10 @@ def main():
             return out(result="error", message="이 이슈로 만든 게시물을 찾지 못했어요.")
         subprocess.run([sys.executable, os.path.join(ROOT, ".github/scripts/build.py")], check=True)
         return out(result="deleted", url=SITE_URL, message="게시물을 내렸어요.")
+    if "영역운동이란" in labels:
+        art = publish_about(issue)
+        subprocess.run([sys.executable, os.path.join(ROOT, ".github/scripts/build.py")], check=True)
+        return out(result="published", url=f"{SITE_URL}{art['path']}", message=f"「{art['title']}」을(를) '영역운동이란?'에 게시했어요.")
     if "인사 수정" in labels:
         a = update_greeting(issue)
         if not a:

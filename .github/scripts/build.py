@@ -140,7 +140,7 @@ def hub():
         <p class="kicker">Student For Christ</p>
         <h1>영역운동</h1>
         <p class="lead">삶의 모든 영역이 하나님의 주권 아래 있음을 고백하며, 삶으로 드러내는 운동</p>
-        <div class="links">{ig_link('sfc_yeongyeog', 'ig-link light')}<a class="ghost" href="#declaration">선언문 읽기 ↓</a></div>
+        <div class="links">{ig_link('sfc_yeongyeog', 'ig-link light')}<a class="ghost" href="about/">영역운동이란?</a><a class="ghost" href="#declaration">선언문 읽기 ↓</a></div>
       </div>
       <img class="hero-logo" src="assets/img/field-logo.png" alt="Student For Christ 영역운동 로고" width="414" height="420">
     </div>
@@ -392,10 +392,12 @@ def guide():
       <a class="apply-btn" href="{NEW}1-sketch.yml" rel="noopener">📸 모임 스케치 올리기</a>
       <a class="apply-btn alt" href="{NEW}2-promo.yml" rel="noopener">📣 모임 홍보 올리기</a>
       <a class="apply-btn ghosty" href="{NEW}3-greeting.yml" rel="noopener">✏️ 영역 소개·인사 바꾸기</a>
+      <a class="apply-btn deep" href="{NEW}4-about.yml" rel="noopener">📖 '영역운동이란?' 글 올리기</a>
     </div>
     <ul>
       <li><strong>스케치</strong>: 이미 한 모임의 기록. 카드 여러 장으로 된 페이지가 돼요.</li>
       <li><strong>홍보</strong>: 앞으로 있을 모임. 모임 날짜가 지나면 자동으로 '지나온 기록'으로 옮겨져요.</li>
+      <li><strong>영역운동이란?</strong>: 영역운동 소개글·강의안. <code>#</code>으로 장을, <code>##</code>으로 카드를 나눠요.</li>
     </ul>
   </section>
   <section class="pcard reveal">
@@ -449,6 +451,116 @@ def guide():
     return "\n".join(o)
 
 
+# ───────────────────────── 영역운동이란? (책모임과 같은 카드 덱) ─────────────────────────
+ABOUT = sorted((load(os.path.relpath(p, ROOT)) for p in glob.glob(os.path.join(ROOT, "_data/about/*.json"))),
+               key=lambda x: (x.get("order", 999), x["date"], x.get("issue", 0)))
+
+DECK_JS = """<script>
+{
+  const bar = document.querySelector('.deck-progress span');
+  if (bar) {
+    const on = () => { const h = document.documentElement; bar.style.transform = 'scaleX(' + Math.min(1, h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) + ')'; };
+    window.addEventListener('scroll', on, { passive: true }); on();
+  }
+  const cur = document.querySelector('.deck-tabs [aria-current]');
+  if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+</script>
+"""
+
+
+def about_band(cur_slug, pre):
+    tabs = [f'<a href="{pre}about/"' + (' aria-current="page"' if cur_slug is None else '') + '>전체</a>']
+    for a in ABOUT:
+        tabs.append(f'<a href="{pre}{a["path"]}"' + (' aria-current="page"' if a["slug"] == cur_slug else '') + f'>{esc(a.get("tab") or a["title"])}</a>')
+    return f"""  <header class="hero deck-band">
+{SHAPES}
+    <div class="hero-inner">
+      <nav class="crumb" aria-label="상위 페이지"><a href="{pre}">영역운동</a></nav>
+      <img class="deck-mark" src="{pre}assets/img/field-logo.png" alt="" aria-hidden="true" width="414" height="420">
+      <p class="kicker">Student For Christ</p>
+      <h1>영역운동이란?</h1>
+      <p class="lead">영역운동을 소개하는 글과 강의안을 모았어요</p>
+      <nav class="deck-tabs" aria-label="글 목록">{''.join(tabs)}</nav>
+    </div>
+  </header>"""
+
+
+def about_index():
+    pre = "../"
+    o = [head("영역운동이란? · SFC 영역운동", "영역운동을 소개하는 글과 강의안", pre + "assets/")]
+    o.append(about_band(None, pre))
+    o.append('  <main class="deck-list">')
+    if not ABOUT:
+        o.append('    <div class="empty"><b>첫 글을 준비하고 있어요</b></div>')
+    for i, a in enumerate(ABOUT, 1):
+        n = sum(1 for c in a.get("cards", []))
+        o.append(f"""    <a class="dtile reveal" href="{pre}{a['path']}">
+      <span class="dtile-no">{i:02d}</span>
+      <span class="dtile-body">
+        <span class="dtile-meta"><span class="chip">{esc(a.get('kind', '소개글'))}</span><span>카드 {n}장</span></span>
+        <span class="dtile-title">{esc(a['title'])}</span>
+        <span class="dtile-sum">{esc(a['summary'])}</span>
+      </span>
+      <span class="dtile-go" aria-hidden="true">→</span>
+    </a>""")
+    o.append('  </main>')
+    o.append(foot(pre + "assets/"))
+    return "\n".join(o).replace("</body>", DECK_JS + "</body>")
+
+
+def about_page(i):
+    a = ABOUT[i]
+    pre = "../../"
+    o = [head(f"{a['title']} · 영역운동이란?", a["summary"], pre + "assets/")]
+    o.append(about_band(a["slug"], pre))
+    chapters = []
+    for c in a.get("cards", []):
+        if c.get("chapter") and c["chapter"] not in chapters:
+            chapters.append(c["chapter"])
+    chips = "".join(f"<li>{esc(ch)}</li>" for ch in chapters)
+    meta = esc(a.get("kind", "소개글")) + (f" · {date_label(a['date'])}" if a.get("show_date", True) else "")
+    o.append(f"""  <div class="deck-progress" aria-hidden="true"><span></span></div>
+  <main class="deck">
+    <header class="dcover reveal">
+      {f'<img class="dcover-img" src="{esc(a["cover"])}" alt="">' if a.get("cover") else ''}
+      <p class="dcover-meta"><span class="dcover-no">{i + 1:02d}</span>{meta}</p>
+      <h1>{esc(a['title'])}</h1>
+      <p class="dcover-sum">{esc(a['summary'])}</p>
+      {f'<ul class="dcover-chapters">{chips}</ul>' if chips else ''}
+      <p class="dcover-hint">아래로 넘겨 주세요 ↓</p>
+    </header>""")
+    cur, n = None, 0
+    for c in a.get("cards", []):
+        if c.get("chapter") and c["chapter"] != cur:
+            cur = c["chapter"]
+            o.append(f'    <h2 class="dchapter reveal">{esc(cur)}</h2>')
+        n += 1
+        o.append(f"""    <section class="dcard reveal{' key' if c.get('key') else ''}">
+      <span class="dcard-no">{n:02d}</span>
+      {f'<h2>{esc(c["title"])}</h2>' if c.get('title') else ''}
+      {c['html']}
+    </section>""")
+    if a.get("share"):
+        li = "".join(f"<li>{esc(q)}</li>" for q in a["share"])
+        o.append(f'    <section class="dcard dshare reveal"><h2>함께 나눠요</h2><ol>{li}</ol></section>')
+    if a.get("prayer"):
+        li = "".join(f"<li>{esc(q)}</li>" for q in a["prayer"])
+        o.append(f'    <section class="dcard dprayer reveal"><h2>함께 기도해요</h2><ol>{li}</ol></section>')
+    prev_ = ABOUT[i - 1] if i > 0 else None
+    next_ = ABOUT[i + 1] if i + 1 < len(ABOUT) else None
+    nav = (f'<a href="{pre}{prev_["path"]}"><small>← 이전 글</small>{esc(prev_["title"])}</a>' if prev_ else "<span></span>") + \
+          (f'<a class="next" href="{pre}{next_["path"]}"><small>다음 글 →</small>{esc(next_["title"])}</a>' if next_ else "<span></span>")
+    o.append(f"""    <footer class="dcard dend reveal">
+      <p class="dend-sign">{esc(a.get('sign') or '함께 읽어 주셔서 고맙습니다.')}</p>
+      <div class="links"><button type="button" class="copy-link">링크 복사</button><a class="ig-link" href="{pre}about/">전체 글 보기</a></div>
+      {f'<nav class="dend-nav">{nav}</nav>' if (prev_ or next_) else ''}
+    </footer>
+  </main>""")
+    o.append(foot(pre + "assets/"))
+    return "\n".join(o).replace("</body>", DECK_JS + "</body>")
+
+
 REDIRECT = """<!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8"><title>이동 중…</title>
 <link rel="canonical" href="{to}"><meta http-equiv="refresh" content="0; url={to}"></head>
@@ -466,6 +578,9 @@ def write(rel, text):
 def main():
     write("index.html", hub())
     write("guide/index.html", guide())
+    write("about/index.html", about_index())
+    for i, a in enumerate(ABOUT):
+        write(a["path"] + "index.html", about_page(i))
     for a in AREAS:
         write(f"{a['slug']}/index.html", room(a))
     for p in POSTS:

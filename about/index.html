@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>영역운동이란? · SFC 영역운동</title>
+  <meta name="description" content="영역운동을 소개하는 글과 강의안">
+  <meta property="og:title" content="영역운동이란? · SFC 영역운동">
+  <meta property="og:description" content="영역운동을 소개하는 글과 강의안">
+  <meta property="og:image" content="https://sfc-movement.github.io/field/assets/img/field-logo.png">
+  <link rel="icon" href="../assets/img/field-logo.png">
+  <link rel="stylesheet" href="../assets/field.css?v=689337e3">
+</head>
+<body>
+
+  <header class="hero deck-band">
+  <div class="hero-shapes" aria-hidden="true">
+    <svg class="heart" viewBox="0 0 100 92"><path fill="#5f6db8" d="M50 90 C20 66 0 50 0 27 C0 11 12 0 27 0 C37 0 45 6 50 14 C55 6 63 0 73 0 C88 0 100 11 100 27 C100 50 80 66 50 90Z"/></svg>
+    <svg class="circle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#17269b"/></svg>
+  </div>
+    <div class="hero-inner">
+      <nav class="crumb" aria-label="상위 페이지"><a href="../">영역운동</a></nav>
+      <img class="deck-mark" src="../assets/img/field-logo.png" alt="" aria-hidden="true" width="414" height="420">
+      <p class="kicker">Student For Christ</p>
+      <h1>영역운동이란?</h1>
+      <p class="lead">영역운동을 소개하는 글과 강의안을 모았어요</p>
+      <nav class="deck-tabs" aria-label="글 목록"><a href="../about/" aria-current="page">전체</a><a href="../about/declaration/">선언문</a></nav>
+    </div>
+  </header>
+  <main class="deck-list">
+    <a class="dtile reveal" href="../about/declaration/">
+      <span class="dtile-no">01</span>
+      <span class="dtile-body">
+        <span class="dtile-meta"><span class="chip">자료</span><span>카드 8장</span></span>
+        <span class="dtile-title">SFC 영역운동 선언문</span>
+        <span class="dtile-sum">2025년 영역협의체가 정리한, 영역운동이 무엇인지에 대한 세 가지 고백입니다.</span>
+      </span>
+      <span class="dtile-go" aria-hidden="true">→</span>
+    </a>
+  </main>
+  <footer class="colophon">
+    <img src="../assets/img/field-logo.png" alt="" aria-hidden="true">
+    <p><b>전국학생신앙운동 SFC · 영역협의체</b></p>
+    <p><a href="https://www.instagram.com/sfc_yeongyeog/" rel="noopener">@sfc_yeongyeog</a> · <a href="../assets/../guide/">영역장 글쓰기 안내</a></p>
+  </footer>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>
+{
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
+    els.forEach(el => io.observe(el));
+  } else { els.forEach(el => el.classList.add('in')); }
+  if (window.matchMedia('(max-width: 640px)').matches) {
+    document.querySelectorAll('.decl').forEach((d, i) => { if (i > 0) d.removeAttribute('open'); });
+  }
+  const btn = document.querySelector('.copy-link');
+  if (btn) btn.addEventListener('click', () => {
+    const t = document.querySelector('.toast');
+    const show = m => { t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); };
+    try { navigator.clipboard.writeText(location.href).then(() => show('링크를 복사했어요'), () => show('주소창의 링크를 복사해 주세요')); }
+    catch (e) { show('주소창의 링크를 복사해 주세요'); }
+  });
+}
+</script>
+<script>
+{
+  const bar = document.querySelector('.deck-progress span');
+  if (bar) {
+    const on = () => { const h = document.documentElement; bar.style.transform = 'scaleX(' + Math.min(1, h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) + ')'; };
+    window.addEventListener('scroll', on, { passive: true }); on();
+  }
+  const cur = document.querySelector('.deck-tabs [aria-current]');
+  if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+</script>
+</body>
+</html>
